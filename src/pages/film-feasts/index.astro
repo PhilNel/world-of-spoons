@@ -1,0 +1,11 @@
+---
+import PostList from "../../components/PostList.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getPosts } from "../../utils/getPosts";
+
+const posts = getPosts('film-feasts');
+---
+
+<BlogLayout title="Film Feasts Menus">
+  <PostList posts={posts} />
+</BlogLayout>
