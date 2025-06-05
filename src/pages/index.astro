@@ -1,16 +1,28 @@
 ---
+import BlogLayout from '../layouts/BlogLayout.astro';
 
+const posts = [
+  {
+    title: "Pistachio Ice Cream That’ll Make You Weep",
+    description: "How to make pistachio ice cream with real nuts.",
+    url: "/ice-cream/pistachio-ice-cream/",
+    date: "2025-05-30"
+  },
+  {
+    title: "Orchard Whiskey Cocktail",
+    description: "A bright apple-forward whiskey cocktail for movie nights.",
+    url: "/cocktails/orchard-whiskey-cocktail/",
+    date: "2025-05-29"
+  },
+  {
+    title: "Taste the Hobbit: Film Feast",
+    description: "Menu for your next Hobbit movie night.",
+    url: "/film-feasts/taste-the-hobbit/",
+    date: "2025-05-28"
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BlogLayout title="Latest Posts">
+  <p class="text-lg">Welcome to World of Spoons — where we whisk up ice cream, cocktails, and film feasts!</p>
+</BlogLayout>
