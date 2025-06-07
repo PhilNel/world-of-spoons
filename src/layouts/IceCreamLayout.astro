@@ -1,0 +1,32 @@
+import BlogLayout from './BlogLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import PostContent from '../components/PostContent.astro';
+import UdemyCourseLink from '../components/UdemyCourseLink.astro';
+import '../styles/layouts.css';
+import '../styles/prose.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+}
+
+const { title, description, pubDate } = Astro.props;
+
+<BlogLayout title={title} description={description}>
+  <article class="ice-cream-post">
+    <HeroSection 
+      title={title}
+      description={description}
+      imagePath="/images/ice-cream/placeholder.jpg"
+    />
+
+    <PostContent>
+      <slot />
+    </PostContent>
+
+    <div class="container section-tight">
+      <UdemyCourseLink />
+    </div>
+  </article>
+</BlogLayout> 

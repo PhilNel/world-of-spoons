@@ -4,17 +4,48 @@ import BlogLayout from '../layouts/BlogLayout.astro';
 
 import { getPosts } from "../utils/getPosts";
 
+// Get posts from all categories
 const iceCreamPosts = getPosts('ice-cream');
 const cocktailPosts = getPosts('cocktails');
 const filmFeastPosts = getPosts('film-feasts');
 
+// Combine and sort all posts by date
 const allPosts = [
   ...iceCreamPosts,
   ...cocktailPosts,
   ...filmFeastPosts
-];
+].sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+
+// Pagination
+const POSTS_PER_PAGE = 5;
+const currentPage = Number(Astro.url.searchParams.get('page')) || 1;
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+const endIndex = startIndex + POSTS_PER_PAGE;
+const currentPosts = allPosts.slice(startIndex, endIndex);
+
+// Generate pagination links
+const paginationLinks = Array.from({ length: totalPages }, (_, i) => i + 1);
 ---
 
 <BlogLayout title="Latest Posts">
-  <PostList posts={allPosts} />
+  <PostList posts={currentPosts} />
+
+  <!-- Pagination -->
+  {totalPages > 1 && (
+    <nav class="mt-8 flex justify-center space-x-2">
+      {paginationLinks.map((page) => (
+        <a
+          href={`/?page=${page}`}
+          class={`px-4 py-2 rounded-md ${
+            page === currentPage
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          {page}
+        </a>
+      ))}
+    </nav>
+  )}
 </BlogLayout>
